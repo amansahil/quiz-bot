@@ -39,14 +39,14 @@ def _quiz(difficulty=None, category=None):
         print(str(i) + ") " + option)
         i = i + 1 
 
-    userInput = input("> ")
-    userInput = userInput.lower().strip()
-    if (userInput.isnumeric()):
-        if (options[int(userInput) - 1] == results['correct_answer']):
+    user_input = input("> ")
+    user_input = user_input.lower().strip()
+    if (user_input.isnumeric()):
+        if (options[int(user_input) - 1] == results['correct_answer']):
             print("Correct!!!")
             return
 
-    if (userInput == answer):
+    if (user_input == answer):
         print("Correct!!!")
     else:
         print("Better luck next time :/, the correct answer was " + results['correct_answer'])
@@ -122,7 +122,7 @@ def read_from_file(file_name):
     
     return ""
 
-def response_agent(answer):
+def response_agent(answer, nlp):
     if len(answer) > 0 and answer[0] == '#':
         params = answer[1:].split('$')
         cmd = int(params[0])
@@ -140,6 +140,7 @@ def response_agent(answer):
             _write_to_file(TOPIC_FILE, params[1])
             print("I will remember that :)")
         elif cmd == 99:
-            print("I don't know how to respond to that, maybe I will learn one day")
+            user_input = params[1].strip()
+            print(nlp.response(user_input))
     else:
         print(answer)
