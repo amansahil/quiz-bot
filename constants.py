@@ -54,3 +54,6 @@ DIFFICULTIES = {
     'medium': 'medium', 
     'hard': 'hard',
 }
+
+NAME_FILE = '.name'
+TOPIC_FILE = '.topic'

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 import requests, json
 import random
 import html
 
 from nltk.corpus import wordnet as wn
 
-from constants import CATEGORIES, DIFFICULTIES
+from constants import CATEGORIES, DIFFICULTIES, NAME_FILE, TOPIC_FILE
 
 def _call_quiz_api(difficulty=None, category=None):
 
@@ -108,6 +109,19 @@ def _api_intent_check(params, func, message):
     else:
         func()
 
+def _write_to_file(file_name, content):
+    f = open(os.path.join(os.getcwd(), file_name), 'w')
+    f.write(content)
+    f.close()
+
+def read_from_file(file_name):
+    path = os.path.join(os.getcwd(), file_name)
+    if os.path.isfile(path):
+        f = open(path, 'r')
+        return f.readline()
+    
+    return ""
+
 def response_agent(answer):
     if len(answer) > 0 and answer[0] == '#':
         params = answer[1:].split('$')
@@ -119,6 +133,12 @@ def response_agent(answer):
             _api_intent_check(params, _quiz, "questions")
         elif cmd == 2:
             _api_intent_check(params, _fact, "facts")
+        elif cmd == 3:            
+            _write_to_file(NAME_FILE, params[1])
+            print("Nice to meet you " + params[1])
+        elif cmd == 4:
+            _write_to_file(TOPIC_FILE, params[1])
+            print("I will remember that :)")
         elif cmd == 99:
             print("I don't know how to respond to that, maybe I will learn one day")
     else:

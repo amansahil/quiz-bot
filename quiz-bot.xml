@@ -36,7 +36,7 @@
 
     <category>
         <pattern> I AM *</pattern>
-        <template>Nice to meet you <set name = "name"><star/></set>!</template>
+        <template>#3$<set name = "name"><star/></set></template>
     </category>
 
     <category>
@@ -245,7 +245,7 @@
 
     <category>
         <pattern> MY FAVOURITE TOPIC IS *</pattern>
-        <template> I will remember that :) <think><set name = "fav-topic"><star/></set></think></template>
+        <template>#4$<set name = "fav-topic"><star/></set></template>
     </category>
 
     <category>
