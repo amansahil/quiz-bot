@@ -1,0 +1,257 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<aiml version="1.0.1" encoding = "UTF-8">
+    <!-- Greetings and Politeness -->
+    <category>
+        <pattern> HELLO </pattern>
+        <template>
+            <random>
+                <li>Hello! How are you?</li>
+                <li>Would you like a fact ?</li>
+                <li>Would you like a quick quiz question ?</li>
+                <li>Hi!</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern> HELLO * </pattern>
+        <template>
+            <srai>HELLO</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> HI </pattern>
+        <template>
+            <srai>HELLO</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> HI * </pattern>
+        <template>
+            <srai>HELLO</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> I AM *</pattern>
+        <template>Nice to meet you <set name = "name"><star/></set>!</template>
+    </category>
+
+    <category>
+        <pattern> MY NAME IS * </pattern>
+        <template>
+            <srai>I AM 
+                <star/>
+            </srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> HOW ARE YOU </pattern>
+        <template>
+            <random>
+                <li>I am doin well</li>
+                <li>All is well</li>
+                <li>All systems are up and running</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern> I AM FINE </pattern>
+        <template>
+            <random>
+                <li>That's good to know</li>
+                <li>Cool</li>
+                <li>Awesome</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern> BYE </pattern>
+        <template>#0$
+            <condition name="name">
+                <li value="unknown">Bye! Nice talking to you. You take care now.</li>
+                <li value="">Bye! Nice talking to you. You take care now.</li>
+                <li>Bye <get name = "name"/>! Thanks for keeping me company
+                </li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern> GOODBYE </pattern>
+        <template>
+            <srai>BYE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> EXIT </pattern>
+        <template>
+            <srai>BYE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> QUIT </pattern>
+        <template>
+            <srai>BYE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> THANKS </pattern>
+        <template>
+            <condition name="name">
+                <li value="unknown">You are most welcome.</li>
+                <li value="">You are most welcome.</li>
+                <li>No problem 
+                    <get name = "name"/>
+                </li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern> THANK YOU </pattern>
+        <template>
+            <srai>THANKS</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> CHEERS </pattern>
+        <template>Sure mate.</template>
+    </category>
+
+    <category>
+        <pattern> CHEERS * </pattern>
+        <template>
+            <srai>CHEERS</srai>
+        </template>
+    </category>
+
+    <!-- Default reaction -->
+    <category>
+        <pattern> * </pattern>
+        <template>#99$
+            <star index="1"/>
+        </template>
+    </category>
+
+    <!-- Quiz & Fact API -->
+    <category>
+        <pattern> QUIZ </pattern>
+        <template>#1$</template>
+    </category>
+
+    <category>
+        <pattern> QUIZ ME </pattern>
+        <template>
+            <srai>QUIZ</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> ASK ME A QUESTION </pattern>
+        <template>
+            <srai>QUIZ</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>QUIZ ME ON MY FAVOURITE TOPIC </pattern>
+        <template>
+            <condition name="fav-topic">
+                <li value="unknown">You have not told me your favourite topic</li>
+                <li value="">You have not told me your favourite topic</li>
+                <li>#1$<get name = "fav-topic"/></li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern> QUIZ ME ON * </pattern>
+        <template>#1$<star /></template>
+    </category>
+
+    <category>
+        <pattern> ASK ME A QUESTION ON * </pattern>
+        <template>
+            <srai>QUIZ ME ON <star /></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> ASK ME A * QUESTION ON * </pattern>
+        <template>#1$<star index= "1"/>$<star index= "2"/></template>
+    </category>
+
+    <category>
+        <pattern> FACT </pattern>
+        <template>#2$</template>
+    </category>
+
+    <category>
+        <pattern> A FACT </pattern>
+        <template>
+            <srai>FACT</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> GIVE ME A FACT </pattern>
+        <template>
+            <srai>FACT</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern> A FACT ON MY FAVOURITE TOPIC </pattern>
+        <template>
+            <condition name="fav-topic">
+                <li value="unknown">You have not told me your favourite topic</li>
+                <li value="">You have not told me your favourite topic</li>
+                <li>#2$<get name = "fav-topic"/></li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern> A FACT ON * </pattern>
+        <template>#2$<star /></template>
+    </category>
+
+    <category>
+        <pattern> GIVE ME A FACT ON * </pattern>
+        <template><srai>A FACT ON <star /></srai></template>
+    </category>
+
+    <category>
+        <pattern> YES </pattern>
+        <that> WOULD YOU LIKE A FACT </that>
+        <template><srai>FACT</srai></template>
+    </category>
+
+    <category>
+        <pattern>YES</pattern>
+        <that> WOULD YOU LIKE A QUICK QUIZ QUESTION </that>
+        <template><srai>QUIZ</srai></template>
+    </category>
+
+    <category>
+        <pattern> MY FAVOURITE TOPIC IS *</pattern>
+        <template> I will remember that :) <think><set name = "fav-topic"><star/></set></think></template>
+    </category>
+
+    <category>
+        <pattern>IT IS *</pattern>
+        <that> YOU HAVE NOT TOLD ME YOUR FAVOURITE TOPIC </that>
+        <template><srai>MY FAVOURITE TOPIC IS <star /></srai></template>
+    </category>
+
+</aiml>
