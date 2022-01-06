@@ -1,12 +1,17 @@
-# Setup
+# QUIZ BOT
+
+A chat bot for all your quiz needs integrated with 
+
+## Setup
 
 Requires python 3.6 or above
 
     pip install -r requirements.txt
 
-Install wordnet and stopwords from nltk
+Install nltkfiles
 
     python
+1
     >>> import nltk
     >>> nltk.download('omw-1.4')
     >>> nltk.download('wordnet')
@@ -14,7 +19,7 @@ Install wordnet and stopwords from nltk
     >>> nltk.download('punkt')
     >>> nltk.download('averaged_perceptron_tagger')
 
-# Run
+## Run
 
 Use standard NLP:
 
@@ -25,4 +30,4 @@ Use BERT NLP:
 
     python quiz_bot.py bert
 
-**Note** : You might need to prepend sudo to it, as pytorch required some admin priviliges 
+**Note** : For the BERT NLP command you might need to prepend sudo to it, as pytorch requires some admin priviliges 
