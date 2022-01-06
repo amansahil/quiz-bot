@@ -52,7 +52,7 @@ CATEGORIES = {
    "cartoon & animations":32,
    "cartoon":32,
    "cartoons":32,
-   "animations":32,
+   "animation":32,
    "animations":32
 }
 

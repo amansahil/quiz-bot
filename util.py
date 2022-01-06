@@ -107,10 +107,14 @@ def _api_intent_check(params, func, message):
 
         _previous_query['category'] = category
 
-        if category in CATEGORIES:
-            func(category = CATEGORIES[category])
-        else:
-            print("I don't know any "+message+" on " + params[1])
+        if category not in CATEGORIES:
+            category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
+
+            if category is None:
+                print("I don't know any "+message+" on " + params[1])
+                return
+        
+        func(category = CATEGORIES[category])
     elif (len(params) == 3):
         difficulty = params[1].lower().strip() 
         category = params[2].lower().strip() 
@@ -119,7 +123,7 @@ def _api_intent_check(params, func, message):
         _previous_query['difficulty'] = difficulty
 
         if category not in CATEGORIES:
-            category = _synonym_check(category, CATEGORIES)        
+            category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
 
             if category is None:
                 print("I don't know any "+message+" on " + params[2])
