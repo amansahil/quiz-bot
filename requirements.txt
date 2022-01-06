@@ -1,2 +1,7 @@
 aiml
 nltk
+Cython
+scikit-learn
+numpy
+pandas
+requests

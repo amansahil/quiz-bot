@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 import aiml
+import sys
 from constants import NAME_FILE, TOPIC_FILE
 
 from nlp import NLP
+from BERTnlp import BERTNLP
 from util import response_agent, read_from_file
 
 kern = aiml.Kernel()
 kern.setTextEncoding(None)
 kern.bootstrap(learnFiles="quiz-bot.xml")
 
-nlp = NLP()
+nlp = None
+if (len(sys.argv) >= 1 and sys.argv[1].lower().strip() == "bert"):
+    print("Loading BERT NLP")
+    nlp = BERTNLP()
+else:
+    print("Loading standard NLP")
+    nlp = NLP()
 
 # Set any previously mentioned data back into aiml
 name = read_from_file(NAME_FILE).strip()
