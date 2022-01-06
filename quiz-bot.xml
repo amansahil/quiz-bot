@@ -272,12 +272,12 @@
     </category>
 
     <category>
-        <pattern> ANOTHER ONE ON *</pattern>
+        <pattern> ANOTHER ONE ON * </pattern>
         <template>#5$<star /></template>
     </category>
 
     <category>
-        <pattern> ANOTHER * ONE ON *</pattern>
+        <pattern> ANOTHER * ONE ON * </pattern>
         <template>#5$<star index="1" />$<star index="2"/></template>
     </category>
 
