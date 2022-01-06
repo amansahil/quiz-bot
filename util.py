@@ -177,6 +177,9 @@ def response_agent(answer, nlp, voice=False):
             if _previous_query["func"] is None:
                 return respond("Another what ?", voice)                
 
+            if voice:
+                respond("Sure ! One sec", voice, display=False)
+
             category = params[1] if (len(params) >= 2 and params[1] != "") else _previous_query["category"] 
             difficulty = params[2] if (len(params) >= 3 and params[2] != "") else _previous_query["difficulty"]  
 
