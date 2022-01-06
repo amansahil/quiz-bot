@@ -9,6 +9,13 @@ from nltk.corpus import wordnet as wn
 
 from constants import CATEGORIES, DIFFICULTIES, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
 
+_previous_query = {
+    'func': None,
+    'category': None,
+    'difficulty': None,
+    'message': None,
+}
+
 _speech_config = speechsdk.SpeechConfig(subscription=AZURE_API_KEY, region="eastus")
 
 
@@ -91,8 +98,15 @@ def _synonym_check(word, dict, pos=wn.ADJ):
     return None
 
 def _api_intent_check(params, func, message):
+
+    _previous_query['func'] = func
+    _previous_query['message'] = message
+
     if (len(params) == 2 and params[1] != ""):
         category = params[1].lower().strip() 
+
+        _previous_query['category'] = category
+
         if category in CATEGORIES:
             func(category = CATEGORIES[category])
         else:
@@ -100,6 +114,9 @@ def _api_intent_check(params, func, message):
     elif (len(params) == 3):
         difficulty = params[1].lower().strip() 
         category = params[2].lower().strip() 
+
+        _previous_query['category'] = category
+        _previous_query['difficulty'] = difficulty
 
         if category not in CATEGORIES:
             category = _synonym_check(category, CATEGORIES)        
@@ -156,6 +173,22 @@ def response_agent(answer, nlp, voice=False):
         elif cmd == 4:
             _write_to_file(TOPIC_FILE, params[1])
             respond("I will remember that :)", voice)
+        elif cmd == 5:
+            if _previous_query["func"] is None:
+                return respond("Another what ?", voice)                
+
+            category = _previous_query["category"]
+            difficulty = _previous_query["difficulty"]
+
+            if category is not None:
+                params.append(_previous_query["category"])
+            
+            if difficulty is not None:
+                params.append(_previous_query["difficulty"])
+            
+            print(params)
+
+            _api_intent_check(params, _previous_query["func"], _previous_query["message"])
         elif cmd == 99:
             user_input = params[1].strip()
             respond(nlp.response(user_input), voice)

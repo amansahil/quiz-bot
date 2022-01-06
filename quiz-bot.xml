@@ -261,4 +261,9 @@
         <template><srai>MY FAVOURITE TOPIC IS <star /></srai></template>
     </category>
 
+    <category>
+        <pattern> ANOTHER ONE </pattern>
+        <template>#5$</template>
+    </category>
+
 </aiml>
