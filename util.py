@@ -142,12 +142,12 @@ def response_agent(answer, nlp, voice=False):
             return "quit"
         elif cmd == 1:
             if voice:
-                respond("Here is a question for you on your screen now", voice, display=False)
+                respond("Sure ! One sec.", voice, display=False)
 
             _api_intent_check(params, _quiz, "questions")
         elif cmd == 2:
             if voice:
-                respond("Here is a fact for you on your screen now", voice, display=False)
+                respond("Sure ! One sec", voice, display=False)
 
             _api_intent_check(params, _fact, "facts")
         elif cmd == 3:            

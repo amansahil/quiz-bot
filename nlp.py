@@ -68,4 +68,3 @@ class NLP:
         data = data.dropna()
 
         return data
-
