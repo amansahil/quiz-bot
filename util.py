@@ -54,7 +54,7 @@ def _quiz(difficulty=None, category=None):
 
     i = 1
     for option in options:
-        print(str(i) + ") " + option)
+        print(html.unescape(str(i) + ") " + option))
         i = i + 1 
 
     user_input = input("> ")
@@ -75,7 +75,7 @@ def _fact(difficulty=None, category=None):
 
     print(html.unescape(results['question']))
     print("")
-    print("Answer: " + results['correct_answer'])
+    print(html.unescape("Answer: " + results['correct_answer']))
 
 def _synonym_check(word, dict, pos=wn.ADJ):
     net = wn.synsets(word, pos=pos)
@@ -177,14 +177,16 @@ def response_agent(answer, nlp, voice=False):
             if _previous_query["func"] is None:
                 return respond("Another what ?", voice)                
 
-            category = _previous_query["category"]
-            difficulty = _previous_query["difficulty"]
+            category = params[1] if (len(params) >= 2 and params[1] != "") else _previous_query["category"] 
+            difficulty = params[2] if (len(params) >= 3 and params[2] != "") else _previous_query["difficulty"]  
+
+            params = ['']
 
             if category is not None:
-                params.append(_previous_query["category"])
+                params.append(category)
             
             if difficulty is not None:
-                params.append(_previous_query["difficulty"])
+                params.append(difficulty)
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
         elif cmd == 99:
