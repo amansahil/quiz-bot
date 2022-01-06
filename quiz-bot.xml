@@ -267,6 +267,16 @@
     </category>
 
     <category>
+        <pattern>GIVE ME ANOTHER ONE </pattern>
+        <template><srai>ANOTHER ONE</srai></template>
+    </category>
+
+    <category>
+        <pattern>TELL ME ANOTHER ONE </pattern>
+        <template><srai>ANOTHER ONE</srai></template>
+    </category>
+
+    <category>
         <pattern> ANOTHER ONE ON MY FAVOURITE TOPIC </pattern>
         <template>#5$<get name = "fav-topic"></get></template>
     </category>
@@ -277,8 +287,28 @@
     </category>
 
     <category>
+        <pattern>GIVE ME ANOTHER ONE ON *</pattern>
+        <template><srai>ANOTHER ONE ON <star /></srai></template>
+    </category>
+
+    <category>
+        <pattern>TELL ME ANOTHER ONE ON *</pattern>
+        <template><srai>ANOTHER ONE ON <star /></srai></template>
+    </category>
+
+    <category>
         <pattern> ANOTHER * ONE ON * </pattern>
         <template>#5$<star index="1" />$<star index="2"/></template>
+    </category>
+
+    <category>
+        <pattern>GIVE ME ANOTHER * ONE ON *</pattern>
+        <template><srai>ANOTHER <star index ="1" /> ONE ON <star index="2" /></srai></template>
+    </category>
+
+    <category>
+        <pattern>TELL ME ANOTHER * ONE ON *</pattern>
+        <template><srai>ANOTHER <star index ="1" /> ONE ON <star index="2" /></srai></template>
     </category>
 
 </aiml>

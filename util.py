@@ -180,16 +180,22 @@ def response_agent(answer, nlp, voice=False):
             if voice:
                 respond("Sure ! One sec", voice, display=False)
 
-            category = params[1] if (len(params) >= 2 and params[1] != "") else _previous_query["category"] 
-            difficulty = params[2] if (len(params) >= 3 and params[2] != "") else _previous_query["difficulty"]  
+            if len(params) == 2 and params[1] != "": 
+                category = params[1]
+            elif len(params) == 3 and params[2] != "":
+                difficulty = params[1]
+                category = params[2]
+            else:
+                difficulty = _previous_query["difficulty"]
+                category = _previous_query["category"]
 
             params = ['']
-
-            if category is not None:
-                params.append(category)
             
             if difficulty is not None:
                 params.append(difficulty)
+
+            if category is not None:
+                params.append(category)
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
         elif cmd == 99:
