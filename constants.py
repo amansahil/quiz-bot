@@ -1,4 +1,12 @@
 
+import os
+from dotenv import load_dotenv
+
+# Load enviroment variables into `os`
+load_dotenv()
+
+AZURE_API_KEY = os.getenv('API_KEY')
+
 CATEGORIES = {
    "general knowledge":9,
    "gk":9,

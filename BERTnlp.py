@@ -3,7 +3,6 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-
 class BERTNLP():
     def __init__(self):
         d1 = pd.read_csv('./dataset/dataset-1.txt', sep='\t')

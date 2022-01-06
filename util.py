@@ -4,9 +4,20 @@ import requests, json
 import random
 import html
 
+import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
-from constants import CATEGORIES, DIFFICULTIES, NAME_FILE, TOPIC_FILE
+from constants import CATEGORIES, DIFFICULTIES, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
+
+_speech_config = speechsdk.SpeechConfig(subscription=AZURE_API_KEY, region="eastus")
+
+
+_speech_recognizer = speechsdk.SpeechRecognizer(speech_config=_speech_config)
+
+_speech_config.speech_synthesis_language = "en-GB"
+_speech_config.speech_synthesis_voice_name ="en-GB-SoniaNeural"
+_audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+_synthesizer = speechsdk.SpeechSynthesizer(speech_config=_speech_config, audio_config=_audio_config)
 
 def _call_quiz_api(difficulty=None, category=None):
 
@@ -122,25 +133,45 @@ def read_from_file(file_name):
     
     return ""
 
-def response_agent(answer, nlp):
+def response_agent(answer, nlp, voice=False):
     if len(answer) > 0 and answer[0] == '#':
         params = answer[1:].split('$')
         cmd = int(params[0])
         if cmd == 0:
-            print(params[1])
+            respond(params[1], voice)
             return "quit"
         elif cmd == 1:
+            if voice:
+                respond("Here is a question for you on your screen now", voice, display=False)
+
             _api_intent_check(params, _quiz, "questions")
         elif cmd == 2:
+            if voice:
+                respond("Here is a fact for you on your screen now", voice, display=False)
+
             _api_intent_check(params, _fact, "facts")
         elif cmd == 3:            
             _write_to_file(NAME_FILE, params[1])
-            print("Nice to meet you " + params[1])
+            respond("Nice to meet you " + params[1], voice)
         elif cmd == 4:
             _write_to_file(TOPIC_FILE, params[1])
-            print("I will remember that :)")
+            respond("I will remember that :)", voice)
         elif cmd == 99:
             user_input = params[1].strip()
-            print(nlp.response(user_input))
+            respond(nlp.response(user_input), voice)
     else:
-        print(answer)
+        respond(answer, voice)
+
+def from_mic():
+    print("Speak into your microphone : ")
+    result = _speech_recognizer.recognize_once_async().get()
+    return result.text
+
+def respond(text, voice=False, display=True):
+    if voice:
+        if display:
+            print(text)
+
+        _synthesizer.speak_text_async(text)
+    else:
+        print(text)

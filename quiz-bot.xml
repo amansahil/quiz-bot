@@ -71,6 +71,13 @@
     </category>
 
     <category>
+        <pattern> I AM GOOD </pattern>
+        <template>
+            <srai>I AM FINE</srai>
+        </template>
+    </category>
+
+    <category>
         <pattern> BYE </pattern>
         <template>#0$
             <condition name="name">

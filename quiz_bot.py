@@ -5,14 +5,15 @@ from constants import NAME_FILE, TOPIC_FILE
 
 from nlp import NLP
 from BERTnlp import BERTNLP
-from util import response_agent, read_from_file
+from util import from_mic, response_agent, read_from_file
 
 kern = aiml.Kernel()
 kern.setTextEncoding(None)
 kern.bootstrap(learnFiles="quiz-bot.xml")
 
 nlp = None
-if (len(sys.argv) >= 1 and sys.argv[1].lower().strip() == "bert"):
+
+if (len(sys.argv) >= 2 and sys.argv[1].lower().strip() == "bert"):
     print("Loading BERT NLP")
     nlp = BERTNLP()
 else:
@@ -30,10 +31,13 @@ if fav_topic != "":
     kern.respond("my favourite topic is " + fav_topic)
 
 
+print("")
 print("=======================================")
 print("Hello, my name is quizo the quiz bot !")
 print("I am here to serve your quiz needs")
+print("HINT: Type in 'voice' to use voice recongnition")
 print("=======================================")
+print("")
 
 while True:
     try:
@@ -42,8 +46,15 @@ while True:
         print("Bye!")
         break
 
+    voice = False
+    if user_input.lower().strip() == "voice":
+        user_input = from_mic()
+        print("> " + user_input)
+        voice = True
+
     answer = kern.respond(user_input)
-    response = response_agent(answer, nlp)
+    response = response_agent(answer, nlp, voice)
+    voice = False
 
     if (response == "quit"):
         break
