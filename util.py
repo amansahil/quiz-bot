@@ -186,8 +186,6 @@ def response_agent(answer, nlp, voice=False):
             if difficulty is not None:
                 params.append(_previous_query["difficulty"])
             
-            print(params)
-
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
         elif cmd == 99:
             user_input = params[1].strip()
