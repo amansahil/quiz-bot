@@ -43,7 +43,7 @@ def _call_quiz_api(difficulty=None, category=None):
 def _quiz(difficulty=None, category=None):
 
     results = _call_quiz_api(difficulty, category)
-    answer = results['correct_answer'].lower().strip()
+    answer = html.unescape(results['correct_answer'].lower().strip())
 
     options = results['incorrect_answers']
     options.append(results['correct_answer'])
@@ -59,7 +59,7 @@ def _quiz(difficulty=None, category=None):
 
     user_input = input("> ")
     user_input = user_input.lower().strip()
-    if (user_input.isnumeric()):
+    if (user_input.isnumeric() and len(options) > int(user_input)):
         if (options[int(user_input) - 1] == results['correct_answer']):
             print("Correct!!!")
             return
@@ -67,7 +67,7 @@ def _quiz(difficulty=None, category=None):
     if (user_input == answer):
         print("Correct!!!")
     else:
-        print("Better luck next time :/, the correct answer was " + results['correct_answer'])
+        print("Better luck next time :/, the correct answer was " + answer)
 
 def _fact(difficulty=None, category=None):
 
