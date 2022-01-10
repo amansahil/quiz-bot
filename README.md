@@ -1,6 +1,6 @@
 # QUIZ BOT
 
-A chatbot for all your quiz needs, integrated with azure voice services.ß1
+A chatbot for all your quiz needs, integrated with azure voice services
 
 ## Setup
 
