@@ -37,7 +37,7 @@ print("=======================================")
 print("Hello, my name is quizo the quiz bot !")
 print("I am here to serve your quiz needs (I specialise in maps).")
 print("")
-print("HINT: Type in 'voice' to use voice recongnition.")
+print("HINT: Type in 'voice' to use voice recognition.")
 print("=======================================")
 print("")
 
