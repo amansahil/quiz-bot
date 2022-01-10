@@ -1,4 +1,5 @@
 import sys
+import string
 
 import aiml
 
@@ -52,6 +53,8 @@ while True:
         print("> " + user_input)
         voice = True
 
+    user_input = user_input.strip().lower()
+    user_input = user_input.translate(str.maketrans('', '', string.punctuation))
     answer = kern.respond(user_input)
     response = response_agent(answer, nlp, voice)
     voice = False

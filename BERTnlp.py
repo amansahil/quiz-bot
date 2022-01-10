@@ -3,11 +3,13 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from constants import DATASET_1, DATASET_2, DATASET_3
+
 class BERTNLP():
     def __init__(self):
-        d1 = pd.read_csv('./dataset/dataset-1.txt', sep='\t')
-        d2 = pd.read_csv('./dataset/dataset-2.txt', sep='\t')
-        d3 = pd.read_csv('./dataset/dataset-3.txt', sep='\t', encoding = 'ISO-8859-1')
+        d1 = pd.read_csv(DATASET_1, sep='\t')
+        d2 = pd.read_csv(DATASET_2, sep='\t')
+        d3 = pd.read_csv(DATASET_3, sep='\t', encoding = 'ISO-8859-1')
         
         self._dataset = d1.append([d2, d3])
 

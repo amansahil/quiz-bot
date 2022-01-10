@@ -10,18 +10,18 @@ from nltk.inference import ResolutionProver
 import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
-from constants import CATEGORIES, DIFFICULTIES, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
+from constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
 
 _read_expr = Expression.fromstring
 _kb = []
 
 try:
-    with open('kb-cache', 'rb') as cache_file:
+    with open(KB_CACHE, 'rb') as cache_file:
         _kb = pickle.load(cache_file)
         print("Loaded knowledge base from cache")
 except:
     print("Loading knowledge base...")
-    with open('map-kb.txt') as file:
+    with open(KB) as file:
         data = file.readlines()
         [_kb.append(_read_expr(row.strip())) for row in data]
 
@@ -33,7 +33,7 @@ except:
             raise Exception('There is a contradiction in the knowledge base')
 
     # Cache KB
-    with open('kb-cache', 'wb') as cache_file:
+    with open(KB_CACHE, 'wb') as cache_file:
         pickle.dump(_kb, cache_file, 4) 
 
 _previous_query = {
@@ -187,9 +187,9 @@ def read_from_file(file_name):
 def _store_in_kb(expression):
     _kb.append(_read_expr(expression))
 
-    _write_to_file('map-kb.txt', expression+'\n', write_type='a')
+    _write_to_file(KB, expression+'\n', write_type='a')
 
-    with open('kb-cache', 'wb') as cache_file:
+    with open(KB_CACHE, 'wb') as cache_file:
         pickle.dump(_kb, cache_file, 4) 
 
 def _is_in(continent, country, voice=False, display=False):

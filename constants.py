@@ -63,5 +63,10 @@ DIFFICULTIES = {
     'hard': 'hard',
 }
 
-NAME_FILE = '.name'
-TOPIC_FILE = '.topic'
+NAME_FILE = 'database/.name'
+TOPIC_FILE = 'database/.topic'
+KB = 'kb/map-kb.txt'
+KB_CACHE = 'kb/kb-cache'
+DATASET_1 = 'dataset/dataset-1.txt'
+DATASET_2 = 'dataset/dataset-2.txt'
+DATASET_3 = 'dataset/dataset-3.txt'
