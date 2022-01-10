@@ -58,4 +58,3 @@ while True:
 
     if (response == "quit"):
         break
-

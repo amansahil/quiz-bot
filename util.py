@@ -283,7 +283,7 @@ def response_agent(answer, nlp, voice=False):
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
         elif cmd == 6:
-            if(len(params) == 4):
+            try:
                 result = _check_border(params[2], params[3], voice)
                 if result == 1:
                     respond("I already know that", voice)
@@ -293,10 +293,21 @@ def response_agent(answer, nlp, voice=False):
                     expr = 'border(' + params[2] + ',' + params[3] + ')'
                     _store_in_kb(expr)
                     respond("Okay I will remember that one", voice)    
-            else:
+            except:
+                respond("I'm not sure if you have asked that question right", voice)    
+        elif cmd == 7:
+            try:
+                result = _check_border(params[2], params[3], voice)
+                if result == 1:
+                    respond("They do share a border", voice)
+                elif result == 0:
+                    respond("They do not share a border", voice)
+                else:
+                    respond("Sorry, I don't know about that one", voice)    
+            except:
                 respond("I'm not sure if you have asked that question right", voice)    
         elif cmd == 8:
-            if(len(params) == 4):
+            try:
                 result = _check_border(params[2], params[3], voice)
                 if result == 1:
                     respond("Hmmm that seems to contradict what I know already", voice)
@@ -306,18 +317,7 @@ def response_agent(answer, nlp, voice=False):
                     expr = '-border(' + params[2] + ',' + params[3] + ')'
                     _store_in_kb(expr)
                     respond("Okay I will remember that one", voice)    
-            else:
-                respond("I'm not sure if you have asked that question right", voice)    
-        elif cmd == 7:
-            if(len(params) == 4):
-                result = _check_border(params[2], params[3], voice)
-                if result == 1:
-                    respond("They do share a border", voice)
-                elif result == 0:
-                    respond("They do not share a border", voice)
-                else:
-                    respond("Sorry, I don't know about that one", voice)    
-            else:
+            except:
                 respond("I'm not sure if you have asked that question right", voice)    
         elif cmd == 9:
             try:

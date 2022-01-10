@@ -42,9 +42,7 @@
     <category>
         <pattern> MY NAME IS * </pattern>
         <template>
-            <srai>I AM 
-                <star/>
-            </srai>
+            <srai>I AM <star/></srai>
         </template>
     </category>
 
@@ -245,7 +243,7 @@
     </category>
 
     <category>
-        <pattern>YES</pattern>
+        <pattern> YES </pattern>
         <that> WOULD YOU LIKE A QUICK QUIZ QUESTION </that>
         <template><srai>QUIZ</srai></template>
     </category>
@@ -256,7 +254,7 @@
     </category>
 
     <category>
-        <pattern>IT IS *</pattern>
+        <pattern> IT IS * </pattern>
         <that> YOU HAVE NOT TOLD ME YOUR FAVOURITE TOPIC </that>
         <template><srai>MY FAVOURITE TOPIC IS <star /></srai></template>
     </category>
@@ -267,12 +265,12 @@
     </category>
 
     <category>
-        <pattern>GIVE ME ANOTHER ONE </pattern>
+        <pattern> GIVE ME ANOTHER ONE </pattern>
         <template><srai>ANOTHER ONE</srai></template>
     </category>
 
     <category>
-        <pattern>TELL ME ANOTHER ONE </pattern>
+        <pattern> TELL ME ANOTHER ONE </pattern>
         <template><srai>ANOTHER ONE</srai></template>
     </category>
 
@@ -287,12 +285,12 @@
     </category>
 
     <category>
-        <pattern>GIVE ME ANOTHER ONE ON *</pattern>
+        <pattern> GIVE ME ANOTHER ONE ON * </pattern>
         <template><srai>ANOTHER ONE ON <star /></srai></template>
     </category>
 
     <category>
-        <pattern>TELL ME ANOTHER ONE ON *</pattern>
+        <pattern> TELL ME ANOTHER ONE ON * </pattern>
         <template><srai>ANOTHER ONE ON <star /></srai></template>
     </category>
 
@@ -302,12 +300,12 @@
     </category>
 
     <category>
-        <pattern>GIVE ME ANOTHER * ONE ON *</pattern>
+        <pattern> GIVE ME ANOTHER * ONE ON * </pattern>
         <template><srai>ANOTHER <star index ="1" /> ONE ON <star index="2" /></srai></template>
     </category>
 
     <category>
-        <pattern>TELL ME ANOTHER * ONE ON *</pattern>
+        <pattern> TELL ME ANOTHER * ONE ON * </pattern>
         <template><srai>ANOTHER <star index ="1" /> ONE ON <star index="2" /></srai></template>
     </category>
 
