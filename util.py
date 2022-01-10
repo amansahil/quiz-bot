@@ -182,6 +182,49 @@ def read_from_file(file_name):
     
     return ""
 
+def _is_in(continent, country, voice=False, display=False):
+
+    respond("Checking...", voice, display)
+
+    expr = _read_expr(continent + '(' + country + ')') 
+    answer = ResolutionProver().prove(expr, _kb, verbose=False)
+
+    if answer:
+        return 1
+    else:
+        answer = ResolutionProver().prove(-expr, _kb, verbose=False)
+        if answer:
+            return 0
+        else:
+            return -1
+
+def _check_border(country1, country2, voice=False):
+
+    respond("Checking...", voice)
+    
+    result = _is_in('island', country1)
+    result_2 = _is_in('island', country2)
+
+    if result == 1 or result_2 == 1:
+        return 0
+
+    expr = _read_expr('border(' + country1 + ',' + country2 + ')') 
+    expr_2 = _read_expr('border(' + country2 + ',' + country1 + ')') 
+
+    answer = ResolutionProver().prove(expr, _kb, verbose=False)
+    answer_2 = ResolutionProver().prove(expr_2, _kb, verbose=False)
+
+    if answer or answer_2:
+        return 1
+    else:
+        answer = ResolutionProver().prove(-expr, _kb, verbose=False) 
+        answer_2 = ResolutionProver().prove(-expr_2, _kb, verbose=False)
+
+        if answer or answer_2: 
+            return 0
+        else:
+            return -1
+
 def response_agent(answer, nlp, voice=False):
     if len(answer) > 0 and answer[0] == '#':
         params = answer[1:].split('$')
@@ -231,25 +274,17 @@ def response_agent(answer, nlp, voice=False):
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
         elif cmd == 7:
-            if (len(params) == 4):
-                expr = _read_expr(params[1] + '(' + params[2] + ',' + params[3] + ')') 
-                expr_2 = _read_expr(params[1] + '(' + params[3] + ',' + params[2] + ')') 
-
-                answer = ResolutionProver().prove(expr, _kb, verbose=False)
-                answer_2 = ResolutionProver().prove(expr_2, _kb, verbose=False)
-
-                if answer or answer_2:
-                    print('Yes, they do share a border')
+            if(len(params) == 4):
+                result = _check_border(params[2], params[3], voice)
+                if result == 1:
+                    respond('Yhey do share a border', voice)
+                elif result == 0:
+                    respond("They do not share a border", voice)
                 else:
-                    answer = ResolutionProver().prove(-expr, _kb, verbose=False) 
-                    answer_2 = ResolutionProver().prove(-expr_2, _kb, verbose=False)
-
-                    if answer or answer_2: 
-                        print("No, they do not share a border")
-                    else:
-                        print("Sorry, I don't know about that one :(")
+                    respond("Sorry, I don't know about that one :(", voice)    
             else:
-                print("Sorry, I don't know about that one :(")
+                respond("I'm not sure if you have asked that question right", voice)    
+
         elif cmd == 99:
             user_input = params[1].strip()
             respond(nlp.response(user_input), voice)

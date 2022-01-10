@@ -314,16 +314,51 @@
     <!-- Logic Input -->
     <category>
         <pattern> I KNOW THAT * BORDERS * </pattern>
-        <template>#6$border<star index="1"/>$<star index="2"/></template>
+        <template>#6$border$<star index="1"/>$<star index="2"/></template>
     </category>  
 
     <category>
         <pattern> CHECK THAT * BORDERS * </pattern>
-        <template>#7$border<star index="1"/>$<star index="2"/></template>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
     </category> 
 
     <category>
         <pattern> DOES * BORDER * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> I KNOW THAT * SHARES A BORDER WITH * </pattern>
+        <template>#6$border$<star index="1"/>$<star index="2"/></template>
+    </category>  
+
+    <category>
+        <pattern> CHECK THAT * SHARES A BORDER WITH * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> DOES * SHARE A BORDER WITH * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> CHECK THAT * DOES NOT BORDER * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> DOES * NOT BORDER * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> CHECK THAT * DOES NOT SHARE A BORDER WITH * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> DOES * NOT SHARE A BORDER WITH * </pattern>
         <template>#7$border$<star index="1"/>$<star index="2"/></template>
     </category> 
 
