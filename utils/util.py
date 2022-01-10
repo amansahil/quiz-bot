@@ -10,7 +10,7 @@ from nltk.inference import ResolutionProver
 import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
-from constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
+from utils.constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
 
 _read_expr = Expression.fromstring
 _kb = []

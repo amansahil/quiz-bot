@@ -9,7 +9,7 @@ from nltk import data, pos_tag
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from constants import DATASET_1, DATASET_2, DATASET_3
+from utils.constants import DATASET_1, DATASET_2, DATASET_3
 
 class NLP:
     def __init__(self):

@@ -65,6 +65,7 @@ DIFFICULTIES = {
 
 NAME_FILE = 'database/.name'
 TOPIC_FILE = 'database/.topic'
+AIML = 'responses.xml'
 KB = 'kb/map-kb.txt'
 KB_CACHE = 'kb/kb-cache'
 DATASET_1 = 'dataset/dataset-1.txt'

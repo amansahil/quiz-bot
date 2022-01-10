@@ -3,14 +3,14 @@ import string
 
 import aiml
 
-from nlp import NLP
-from BERTnlp import BERTNLP
-from util import from_mic, response_agent, read_from_file
-from constants import NAME_FILE, TOPIC_FILE
+from nlp.nlp import NLP
+from nlp.BERTnlp import BERTNLP
+from utils.util import from_mic, response_agent, read_from_file
+from utils.constants import AIML, NAME_FILE, TOPIC_FILE
 
 kern = aiml.Kernel()
 kern.setTextEncoding(None)
-kern.bootstrap(learnFiles="quiz-bot.xml")
+kern.bootstrap(learnFiles=AIML)
 
 nlp = None
 
