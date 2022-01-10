@@ -35,7 +35,7 @@ if fav_topic != "":
 print("")
 print("=======================================")
 print("Hello, my name is quizo the quiz bot !")
-print("I am here to serve your quiz needs")
+print("I am here to serve your quiz needs (I specialise in maps)")
 print("HINT: Type in 'voice' to use voice recongnition")
 print("=======================================")
 print("")
