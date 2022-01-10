@@ -277,7 +277,7 @@ def response_agent(answer, nlp, voice=False):
             if(len(params) == 4):
                 result = _check_border(params[2], params[3], voice)
                 if result == 1:
-                    respond('Yhey do share a border', voice)
+                    respond('They do share a border', voice)
                 elif result == 0:
                     respond("They do not share a border", voice)
                 else:
