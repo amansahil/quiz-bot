@@ -126,47 +126,50 @@ def _synonym_check(word, dict, pos=wn.ADJ):
 
 def _api_intent_check(params, func, message):
 
-    _previous_query['func'] = func
-    _previous_query['message'] = message
+    try:
+        _previous_query['func'] = func
+        _previous_query['message'] = message
 
-    if (len(params) == 2 and params[1] != ""):
-        category = params[1].lower().strip() 
+        if (len(params) == 2 and params[1] != ""):
+            category = params[1].lower().strip() 
 
-        _previous_query['category'] = category
+            _previous_query['category'] = category
 
-        if category not in CATEGORIES:
-            category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
+            if category not in CATEGORIES:
+                category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
 
-            if category is None:
-                print("I don't know any "+message+" on " + params[1])
-                return
-        
-        func(category = CATEGORIES[category])
-    elif (len(params) == 3):
-        difficulty = params[1].lower().strip() 
-        category = params[2].lower().strip() 
+                if category is None:
+                    print("I don't know any "+message+" on " + params[1])
+                    return
+            
+            func(category = CATEGORIES[category])
+        elif (len(params) == 3):
+            difficulty = params[1].lower().strip() 
+            category = params[2].lower().strip() 
 
-        _previous_query['category'] = category
-        _previous_query['difficulty'] = difficulty
+            _previous_query['category'] = category
+            _previous_query['difficulty'] = difficulty
 
-        if category not in CATEGORIES:
-            category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
+            if category not in CATEGORIES:
+                category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
 
-            if category is None:
-                print("I don't know any "+message+" on " + params[2])
-                return
-        elif difficulty not in DIFFICULTIES:
-            synonym = _synonym_check(difficulty, DIFFICULTIES)        
+                if category is None:
+                    print("I don't know any "+message+" on " + params[2])
+                    return
+            elif difficulty not in DIFFICULTIES:
+                synonym = _synonym_check(difficulty, DIFFICULTIES)        
 
-            if synonym is not None:
-                func(difficulty=DIFFICULTIES[synonym], category=CATEGORIES[category])
-            else:
-                print("I don't know any "+difficulty+" " +message)
-                return
-        else:        
-            func(difficulty=DIFFICULTIES[difficulty], category=CATEGORIES[category])
-    else:
-        func()
+                if synonym is not None:
+                    func(difficulty=DIFFICULTIES[synonym], category=CATEGORIES[category])
+                else:
+                    print("I don't know any "+difficulty+" " +message)
+                    return
+            else:        
+                func(difficulty=DIFFICULTIES[difficulty], category=CATEGORIES[category])
+        else:
+            func()
+    except:
+        print("There was an issue contacting the quiz API")
 
 def _write_to_file(file_name, content, write_type='w'):
     f = open(os.path.join(os.getcwd(), file_name), write_type)
