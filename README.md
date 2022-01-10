@@ -1,6 +1,6 @@
 # QUIZ BOT
 
-A chat bot for all your quiz needs integrated with azure voice services.ß1
+A chatbot for all your quiz needs, integrated with azure voice services.ß1
 
 ## Setup
 
@@ -38,4 +38,6 @@ Use BERT NLP:
 
     python quiz_bot.py bert
 
-**Note** : For the BERT NLP command you might need to prepend sudo to it, as pytorch requires some admin priviliges 
+**Note** : For the BERT NLP command, you might need to prepend `sudo` to it, as PyTorch requires some admin privileges 
+
+**Note 2** : Delete the `kb-cache` file if you want to load the knowledge base from `map-kb.txt` instead
