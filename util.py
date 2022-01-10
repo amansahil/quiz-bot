@@ -169,8 +169,8 @@ def _api_intent_check(params, func, message):
     else:
         func()
 
-def _write_to_file(file_name, content):
-    f = open(os.path.join(os.getcwd(), file_name), 'w')
+def _write_to_file(file_name, content, write_type='w'):
+    f = open(os.path.join(os.getcwd(), file_name), write_type)
     f.write(content)
     f.close()
 
@@ -181,6 +181,14 @@ def read_from_file(file_name):
         return f.readline()
     
     return ""
+
+def _store_in_kb(expression):
+    _kb.append(_read_expr(expression))
+
+    _write_to_file('map-kb.txt', expression+'\n', write_type='a')
+
+    with open('kb-cache', 'wb') as cache_file:
+        pickle.dump(_kb, cache_file, 4) 
 
 def _is_in(continent, country, voice=False, display=False):
 
@@ -273,15 +281,41 @@ def response_agent(answer, nlp, voice=False):
                 params.append(category)
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
+        elif cmd == 6:
+            if(len(params) == 4):
+                result = _check_border(params[2], params[3], voice)
+                if result == 1:
+                    respond("I already know that", voice)
+                elif result == 0:
+                    respond("Hmmm that seems to contradict what I know already", voice)
+                else:
+                    expr = 'border(' + params[2] + ',' + params[3] + ')'
+                    _store_in_kb(expr)
+                    respond("Okay I will remember that one", voice)    
+            else:
+                respond("I'm not sure if you have asked that question right", voice)    
+        elif cmd == 8:
+            if(len(params) == 4):
+                result = _check_border(params[2], params[3], voice)
+                if result == 1:
+                    respond("Hmmm that seems to contradict what I know already", voice)
+                elif result == 0:
+                    respond("I already know that", voice)
+                else:
+                    expr = '-border(' + params[2] + ',' + params[3] + ')'
+                    _store_in_kb(expr)
+                    respond("Okay I will remember that one", voice)    
+            else:
+                respond("I'm not sure if you have asked that question right", voice)    
         elif cmd == 7:
             if(len(params) == 4):
                 result = _check_border(params[2], params[3], voice)
                 if result == 1:
-                    respond('They do share a border', voice)
+                    respond("They do share a border", voice)
                 elif result == 0:
                     respond("They do not share a border", voice)
                 else:
-                    respond("Sorry, I don't know about that one :(", voice)    
+                    respond("Sorry, I don't know about that one", voice)    
             else:
                 respond("I'm not sure if you have asked that question right", voice)    
 
@@ -298,9 +332,7 @@ def from_mic():
 
 def respond(text, voice=False, display=True):
     if voice:
-        if display:
-            print(text)
-
         _synthesizer.speak_text_async(text)
-    else:
+
+    if display:
         print(text)
