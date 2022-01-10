@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-import aiml
 import sys
-from constants import NAME_FILE, TOPIC_FILE
+
+import aiml
 
 from nlp import NLP
 from BERTnlp import BERTNLP
 from util import from_mic, response_agent, read_from_file
+from constants import NAME_FILE, TOPIC_FILE
 
 kern = aiml.Kernel()
 kern.setTextEncoding(None)

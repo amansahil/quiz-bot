@@ -1,13 +1,41 @@
 # -*- coding: utf-8 -*-
 import os
+from numpy import pi
 import requests, json
 import random
 import html
+import pickle
 
+from nltk.sem import Expression
+from nltk.inference import ResolutionProver
 import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
 from constants import CATEGORIES, DIFFICULTIES, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
+
+_read_expr = Expression.fromstring
+_kb = []
+
+try:
+    with open('kb-cache', 'rb') as cache_file:
+        _kb = pickle.load(cache_file)
+        print("Loaded knowledge base from cache")
+except:
+    print("Loading knowledge base...")
+    with open('map-kb.txt') as file:
+        data = file.readlines()
+        [_kb.append(_read_expr(row.strip())) for row in data]
+
+    for expr in _kb:
+        expression = ResolutionProver().prove(expr, _kb, verbose=False)
+        opposite_expression = ResolutionProver().prove(-expr, _kb, verbose=False)
+
+        if expression == opposite_expression:
+            raise Exception('There is a contradiction in the knowledge base')
+
+    # Cache KB
+    with open('kb-cache', 'wb') as cache_file:
+        pickle.dump(_kb, cache_file, 4) 
 
 _previous_query = {
     'func': None,
@@ -202,6 +230,26 @@ def response_agent(answer, nlp, voice=False):
                 params.append(category)
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
+        elif cmd == 7:
+            if (len(params) == 4):
+                expr = _read_expr(params[1] + '(' + params[2] + ',' + params[3] + ')') 
+                expr_2 = _read_expr(params[1] + '(' + params[3] + ',' + params[2] + ')') 
+
+                answer = ResolutionProver().prove(expr, _kb, verbose=False)
+                answer_2 = ResolutionProver().prove(expr_2, _kb, verbose=False)
+
+                if answer or answer_2:
+                    print('Yes, they do share a border')
+                else:
+                    answer = ResolutionProver().prove(-expr, _kb, verbose=False) 
+                    answer_2 = ResolutionProver().prove(-expr_2, _kb, verbose=False)
+
+                    if answer or answer_2: 
+                        print("No, they do not share a border")
+                    else:
+                        print("Sorry, I don't know about that one :(")
+            else:
+                print("Sorry, I don't know about that one :(")
         elif cmd == 99:
             user_input = params[1].strip()
             respond(nlp.response(user_input), voice)

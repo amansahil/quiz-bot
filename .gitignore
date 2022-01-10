@@ -154,3 +154,4 @@ cython_debug/
 # Custom data
 .name
 .topic
+kb-cache

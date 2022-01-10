@@ -311,4 +311,20 @@
         <template><srai>ANOTHER <star index ="1" /> ONE ON <star index="2" /></srai></template>
     </category>
 
+    <!-- Logic Input -->
+    <category>
+        <pattern> I KNOW THAT * BORDERS * </pattern>
+        <template>#6$border<star index="1"/>$<star index="2"/></template>
+    </category>  
+
+    <category>
+        <pattern> CHECK THAT * BORDERS * </pattern>
+        <template>#7$border<star index="1"/>$<star index="2"/></template>
+    </category> 
+
+    <category>
+        <pattern> DOES * BORDER * </pattern>
+        <template>#7$border$<star index="1"/>$<star index="2"/></template>
+    </category> 
+
 </aiml>
