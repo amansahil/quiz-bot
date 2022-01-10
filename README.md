@@ -13,7 +13,7 @@ Requires python 3.6 or above
 Install nltkfiles
 
     python
-1
+
     >>> import nltk
     >>> nltk.download('omw-1.4')
     >>> nltk.download('wordnet')
