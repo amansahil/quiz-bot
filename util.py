@@ -194,6 +194,8 @@ def _is_in(continent, country, voice=False, display=False):
 
     respond("Checking...", voice, display)
 
+    continent = continent.replace(" ", "")
+
     expr = _read_expr(continent + '(' + country + ')') 
     answer = ResolutionProver().prove(expr, _kb, verbose=False)
 
@@ -318,7 +320,19 @@ def response_agent(answer, nlp, voice=False):
                     respond("Sorry, I don't know about that one", voice)    
             else:
                 respond("I'm not sure if you have asked that question right", voice)    
-
+        elif cmd == 9:
+            try:
+                answer = _is_in(params[2], params[1], voice, display=True)
+                
+                if answer == 1:
+                    respond("Yes", voice)
+                elif answer == 0:
+                    respond("No", voice)
+                else:
+                    respond("Sorry, I don't know about that one", voice)    
+                
+            except:
+                respond("I'm not sure if you have asked that question right", voice)    
         elif cmd == 99:
             user_input = params[1].strip()
             respond(nlp.response(user_input), voice)
