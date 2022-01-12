@@ -1,5 +1,6 @@
 import os
 from numpy import pi
+from numpy.lib.function_base import diff
 import requests, json
 import random
 import html
@@ -267,6 +268,7 @@ def response_agent(answer, nlp, voice=False):
                 respond("Sure ! One sec", voice, display=False)
 
             if len(params) == 2 and params[1] != "": 
+                difficulty = None
                 category = params[1]
             elif len(params) == 3 and params[2] != "":
                 difficulty = params[1]

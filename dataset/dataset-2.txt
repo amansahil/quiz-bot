@@ -429,7 +429,7 @@ Isaac_Newton	Did Newton reject the church's doctrine of the Trinity?	Newton may 
 Isaac_Newton	Did Newton reject the church's doctrine of the Trinity?	Maybe	easy	hard	S09_set4_a1
 Isaac_Newton	Was Newton admitted into Havard College?	No.	easy	easy	S09_set4_a1
 Isaac_Newton	Was Newton admitted into Havard College?	Maybe, but it doesn't say so in the article	easy	easy	S09_set4_a1
-Isaac_Newton	When was Newton's date of birth recorded?	Christmas Day, Decembeer 25, 1642.	medium	medium	S09_set4_a1
+Isaac_Newton	When was Newton's date of birth recorded?	Christmas Day, December 25, 1642.	medium	medium	S09_set4_a1
 Isaac_Newton	When was Newton's date of birth recorded?	his date of birth was recorded as Christmas Day, December 25, 1642	medium	easy	S09_set4_a1
 Isaac_Newton	How many laws of motion did Netwon have?	Three	medium	medium	S09_set4_a1
 Isaac_Newton	How many laws of motion did Netwon have?	Three	medium	easy	S09_set4_a1
