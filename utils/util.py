@@ -45,7 +45,6 @@ _previous_query = {
 
 _speech_config = speechsdk.SpeechConfig(subscription=AZURE_API_KEY, region="eastus")
 
-
 _speech_recognizer = speechsdk.SpeechRecognizer(speech_config=_speech_config)
 
 _speech_config.speech_synthesis_language = "en-GB"

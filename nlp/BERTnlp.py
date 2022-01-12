@@ -3,6 +3,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from nlp.nlp import NLP
 from utils.constants import DATASET_1, DATASET_2, DATASET_3
 
 class BERTNLP():
@@ -16,7 +17,7 @@ class BERTNLP():
         self._dataset['Question'] = self._dataset['ArticleTitle'].str.replace('_', ' ') + ' ' + self._dataset['Question']
         self._dataset = self._dataset[['Question', 'Answer']]
 
-        self._dataset = self._clean_data(self._dataset)
+        self._dataset = NLP._clean_data(self._dataset)
 
         self._model = SentenceTransformer('bert-base-nli-mean-tokens')
         self._sentence_embeddings = self._model.encode(tuple(self._dataset['Question']))
@@ -28,8 +29,3 @@ class BERTNLP():
 
         return self._dataset.iloc[max_similarity]['Answer']
 
-    def _clean_data(self, data):
-        data = data.drop_duplicates(subset='Question')
-        data = data.dropna()
-
-        return data

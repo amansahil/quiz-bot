@@ -65,7 +65,8 @@ class NLP:
 
         return self._dataset.iloc[max_similarity]['Answer']
 
-    def _clean_data(self, data):
+    @staticmethod
+    def _clean_data(data):
         data = data.drop_duplicates(subset='Question')
         data = data.dropna()
 
