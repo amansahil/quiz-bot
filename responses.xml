@@ -47,10 +47,32 @@
     </category>
 
     <category>
+        <pattern> WHAT IS MY NAME </pattern>
+        <template>
+            <condition name="name">
+                <li value="unknown">You have not told me your name</li>
+                <li value="">You have not told me your name</li>
+                <li><get name = "name"></get>, if I remember right ?</li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern> DO YOU REMEMBER ME </pattern>
+        <template><srai> WHAT IS MY NAME </srai></template>
+    </category>
+
+    <category>
+        <pattern> IT IS * </pattern>
+        <that> YOU HAVE NOT TOLD ME YOUR NAME </that>
+        <template><srai>I AM <star /></srai></template>
+    </category>
+
+    <category>
         <pattern> HOW ARE YOU </pattern>
         <template>
             <random>
-                <li>I am doin well</li>
+                <li>I am doing well</li>
                 <li>All is well</li>
                 <li>All systems are up and running</li>
             </random>
@@ -81,8 +103,7 @@
             <condition name="name">
                 <li value="unknown">Bye! Nice talking to you. You take care now.</li>
                 <li value="">Bye! Nice talking to you. You take care now.</li>
-                <li>Bye <get name = "name"/>! Thanks for keeping me company
-                </li>
+                <li>Bye <get name = "name"/>! Thanks for keeping me company</li>
             </condition>
         </template>
     </category>
@@ -249,6 +270,18 @@
     </category>
 
     <category>
+        <pattern> NO </pattern>
+        <that> WOULD YOU LIKE A FACT </that>
+        <template>okay</template>
+    </category>
+
+    <category>
+        <pattern> NO </pattern>
+        <that> WOULD YOU LIKE A QUICK QUIZ QUESTION </that>
+        <template>okay</template>
+    </category>
+
+    <category>
         <pattern> MY FAVOURITE TOPIC IS *</pattern>
         <template>#4$<set name = "fav-topic"><star/></set></template>
     </category>
@@ -257,6 +290,22 @@
         <pattern> IT IS * </pattern>
         <that> YOU HAVE NOT TOLD ME YOUR FAVOURITE TOPIC </that>
         <template><srai>MY FAVOURITE TOPIC IS <star /></srai></template>
+    </category>
+
+    <category>
+        <pattern> WHAT IS MY FAVOURITE TOPIC </pattern>
+        <template>
+            <condition name="fav-topic">
+                <li value="unknown">You have not told me your favourite topic</li>
+                <li value="">You have not told me your favourite topic</li>
+                <li><get name = "fav-topic"></get>, if I remember right ?</li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern> DO YOU REMEMBER MY FAVOURITE TOPIC </pattern>
+        <template><srai> WHAT IS MY FAVOURITE TOPIC </srai></template>
     </category>
 
     <category>
