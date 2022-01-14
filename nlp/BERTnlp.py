@@ -28,4 +28,3 @@ class BERTNLP():
         max_similarity = np.argmax(similarity_array, axis=None)
 
         return self._dataset.iloc[max_similarity]['Answer']
-
