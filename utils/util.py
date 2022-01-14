@@ -1,6 +1,4 @@
 import os
-from numpy import pi
-from numpy.lib.function_base import diff
 import requests, json
 import random
 import html
@@ -86,7 +84,7 @@ def _quiz(difficulty=None, category=None):
 
     user_input = input("> ")
     user_input = user_input.lower().strip()
-    if (user_input.isnumeric() and len(options) > int(user_input)):
+    if (user_input.isnumeric() and len(options) >= int(user_input)):
         if (options[int(user_input) - 1] == results['correct_answer']):
             print("Correct!!!")
             return
