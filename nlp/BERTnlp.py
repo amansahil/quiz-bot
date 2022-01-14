@@ -10,7 +10,7 @@ class BERTNLP():
         self._dataset = NLP.init_data()
         self._dataset = NLP.clean_data(self._dataset)
 
-        self._model = SentenceTransformer('bert-base-nli-mean-tokens')
+        self._model = SentenceTransformer('multi-qa-MiniLM-L6-cos-v1')
         self._sentence_embeddings = self._model.encode(tuple(self._dataset['Question']))
     
     def response(self, user_input):
