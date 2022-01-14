@@ -8,16 +8,8 @@ from utils.constants import DATASET_1, DATASET_2, DATASET_3
 
 class BERTNLP():
     def __init__(self):
-        d1 = pd.read_csv(DATASET_1, sep='\t')
-        d2 = pd.read_csv(DATASET_2, sep='\t')
-        d3 = pd.read_csv(DATASET_3, sep='\t', encoding = 'ISO-8859-1')
-        
-        self._dataset = d1.append([d2, d3])
-
-        self._dataset['Question'] = self._dataset['ArticleTitle'].str.replace('_', ' ') + ' ' + self._dataset['Question']
-        self._dataset = self._dataset[['Question', 'Answer']]
-
-        self._dataset = NLP._clean_data(self._dataset)
+        self._dataset = NLP.init_data()
+        self._dataset = NLP.clean_data(self._dataset)
 
         self._model = SentenceTransformer('bert-base-nli-mean-tokens')
         self._sentence_embeddings = self._model.encode(tuple(self._dataset['Question']))

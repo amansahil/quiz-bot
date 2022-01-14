@@ -13,16 +13,8 @@ from utils.constants import DATASET_1, DATASET_2, DATASET_3
 
 class NLP:
     def __init__(self):
-        d1 = pd.read_csv(DATASET_1, sep='\t')
-        d2 = pd.read_csv(DATASET_2, sep='\t')
-        d3 = pd.read_csv(DATASET_3, sep='\t', encoding = 'ISO-8859-1')
-        
-        self._dataset = d1.append([d2, d3])
-
-        self._dataset['Question'] = self._dataset['ArticleTitle'].str.replace('_', ' ') + ' ' + self._dataset['Question']
-        self._dataset = self._dataset[['Question', 'Answer']]
-
-        self._dataset = self._clean_data(self._dataset)
+        self._dataset = self.init_data()
+        self._dataset = self.clean_data(self._dataset)
 
         self._tfidf_vectorizer = TfidfVectorizer(tokenizer=self._tokenizer) 
         self._tfidf_matrix = self._tfidf_vectorizer.fit_transform(tuple(self._dataset['Question']))
@@ -66,7 +58,20 @@ class NLP:
         return self._dataset.iloc[max_similarity]['Answer']
 
     @staticmethod
-    def _clean_data(data):
+    def init_data() :
+        d1 = pd.read_csv(DATASET_1, sep='\t')
+        d2 = pd.read_csv(DATASET_2, sep='\t')
+        d3 = pd.read_csv(DATASET_3, sep='\t', encoding = 'ISO-8859-1')
+        
+        dataset = d1.append([d2, d3])
+
+        dataset['Question'] = dataset['ArticleTitle'].str.replace('_', ' ') + ' ' + dataset['Question']
+        dataset = dataset[['Question', 'Answer']]
+
+        return dataset
+
+    @staticmethod
+    def clean_data(data):
         data = data.drop_duplicates(subset='Question')
         data = data.dropna()
 
