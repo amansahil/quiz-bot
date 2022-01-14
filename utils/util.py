@@ -222,7 +222,7 @@ def _check_border(country1, country2, voice=False):
     expr_2 = _read_expr('border(' + country2 + ',' + country1 + ')') 
 
     answer = ResolutionProver().prove(expr, _kb, verbose=False)
-    answer_2 = ResolutionProver().prove(expr_2, _kb, verbose=False)
+    answer_2 = ResolutionProver().prove(expr_2, _kb, verbose=False) # More performant than adding `border(x, y) -> border(y, x)` to `map-kb.txt` even though it does the same.
 
     if answer or answer_2:
         return 1
