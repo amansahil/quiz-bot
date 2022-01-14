@@ -4,7 +4,6 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from nlp.nlp import NLP
-from utils.constants import DATASET_1, DATASET_2, DATASET_3
 
 class BERTNLP():
     def __init__(self):
