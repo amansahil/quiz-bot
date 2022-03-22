@@ -3,13 +3,16 @@ import requests, json
 import random
 import html
 import pickle
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 
 from nltk.sem import Expression
 from nltk.inference import ResolutionProver
 import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
-from utils.constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_API_KEY
+from utils.constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_VOICE_API_KEY
+from utils.image_detector import detect_multi_image
 
 _read_expr = Expression.fromstring
 _kb = []
@@ -42,7 +45,7 @@ _previous_query = {
     'message': None,
 }
 
-_speech_config = speechsdk.SpeechConfig(subscription=AZURE_API_KEY, region="eastus")
+_speech_config = speechsdk.SpeechConfig(subscription=AZURE_VOICE_API_KEY, region="eastus")
 
 _speech_recognizer = speechsdk.SpeechRecognizer(speech_config=_speech_config)
 
@@ -334,6 +337,16 @@ def response_agent(answer, nlp, voice=False):
                 
             except:
                 respond("I'm not sure if you have asked that question right", voice)    
+
+        elif cmd == 10:
+            root = Tk()
+            root.withdraw()
+            filename = askopenfilename(filetypes=[("Image File",('.png', '.jpg', '.jpeg'))])
+
+            if filename:
+                detect_multi_image(filename)
+            else:
+                respond("No file selected", voice)
         elif cmd == 99:
             user_input = params[1].strip()
             respond(nlp.response(user_input), voice)

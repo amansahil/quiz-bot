@@ -5,7 +5,11 @@ from dotenv import load_dotenv
 # Load enviroment variables into `os`
 load_dotenv()
 
-AZURE_API_KEY = os.getenv('API_KEY')
+AZURE_VOICE_API_KEY = os.getenv('VOICE_API_KEY')
+PROJECT_ID = os.getenv('PROJECT_ID')
+CV_KEY = os.getenv('CV_KEY')
+CV_ENDPOINT = os.getenv('CV_ENDPOINT')
+MODEL_NAME = os.getenv('MODEL_NAME')
 
 CATEGORIES = {
    "general knowledge":9,
