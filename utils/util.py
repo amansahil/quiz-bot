@@ -3,8 +3,7 @@ import requests, json
 import random
 import html
 import pickle
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
+import PySimpleGUI as sg
 
 from nltk.sem import Expression
 from nltk.inference import ResolutionProver
@@ -339,14 +338,27 @@ def response_agent(answer, nlp, voice=False):
                 respond("I'm not sure if you have asked that question right", voice)    
 
         elif cmd == 10:
-            root = Tk()
-            root.withdraw()
-            filename = askopenfilename(filetypes=[("Image File",('.png', '.jpg', '.jpeg'))])
+            try:            
+                layout =  [[sg.In() ,sg.FileBrowse()], [sg.Button('Ok'), sg.Button('Cancel')]]
+                # Create the Window
+                window = sg.Window('Select Image', layout)
+                # Event Loop to process "events" and get the "values" of the inputs
+                event, values = window.read()
 
-            if filename:
-                detect_multi_image(filename)
-            else:
-                respond("No file selected", voice)
+                filename = None
+                if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+                    filename = None
+                else:
+                    filename = values[0]
+
+                window.close()
+
+                if filename:
+                    detect_multi_image(filename)
+                else:
+                    respond("No file selected", voice)
+            except:
+                respond("Invalid File Selected")
         elif cmd == 99:
             user_input = params[1].strip()
             respond(nlp.response(user_input), voice)

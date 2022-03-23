@@ -8,3 +8,4 @@ requests
 azure-cognitiveservices-speech 
 python-dotenv
 sentence_transformers
+pysimplegui
