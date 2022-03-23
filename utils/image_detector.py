@@ -1,18 +1,37 @@
 
 import numpy as np
-import os
+import tensorflow as tf
 from PIL import Image, ImageDraw, ImageFont
 
 from matplotlib import pyplot as plt
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import load_model
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 from msrest.authentication import ApiKeyCredentials
 
 from utils.constants import CV_KEY, CV_ENDPOINT, PROJECT_ID, MODEL_NAME
 
+tf.get_logger().setLevel('ERROR')
+tf.autograph.set_verbosity(0)
+
 credentials = ApiKeyCredentials(in_headers={"Prediction-key": CV_KEY})
 predictor = CustomVisionPredictionClient(endpoint=CV_ENDPOINT, credentials=credentials)
+model = load_model('flag_detector.h5')
 
-def detect_multi_image(img_file):
+LABELS = ['Argentina', 'Belgium', 'Brazil', 'Columbia', 'Croatia', 'Denmark', 'England', 'France', 'Japan', 'Mexico', 'Portugal', 'Russia', 'Spain', 'Sweden', 'Switzerland', 'Uruguay']
+
+def detect_single_object(img_file):
+    img = image.load_img(img_file, target_size = (64, 64))
+    img = image.img_to_array(img)
+    img = np.expand_dims(img, axis = 0)
+    predict_func = tf.autograph.experimental.do_not_convert(model.predict) 
+    result = predict_func(img)
+    y_classes = result.argmax(axis=-1)
+    predicted_label = sorted(LABELS)[y_classes[0]]
+
+    return predicted_label
+
+def detect_multi_object(img_file):
     img = Image.open(img_file)
     img_h, img_w, img_ch = np.array(img).shape
     with open(img_file, mode="rb") as data:

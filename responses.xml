@@ -456,8 +456,13 @@
 
     <!-- Image Detection -->
     <category>
+        <pattern> WHAT IS THE FLAG IN THIS IMAGE </pattern>
+        <template>#10$single</template>
+    </category>
+
+    <category>
         <pattern> WHAT ARE THE FLAGS IN THIS IMAGE </pattern>
-        <template>#10</template>
+        <template>#10$multi</template>
     </category>
 
 </aiml>
