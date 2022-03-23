@@ -158,6 +158,3 @@ kb-cache
 
 # Misc
 .DS_Store
- 
-# CNN Model
-flag_detector.h5
