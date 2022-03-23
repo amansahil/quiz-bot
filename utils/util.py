@@ -11,7 +11,7 @@ import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
 from utils.constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_VOICE_API_KEY
-from utils.image_detector import detect_multi_object, detect_single_object
+from utils.image_detector import detect_multi_object, detect_single_object, detect_single_object_cloud
 
 _read_expr = Expression.fromstring
 _kb = []
@@ -357,10 +357,11 @@ def response_agent(answer, nlp, voice=False):
                     if params[1] == "multi":
                         detect_multi_object(filename)
                     else:
-                        print("")
-                        flag = detect_single_object(filename)
-                        print("")
-                        respond(flag)
+                        local_flag = detect_single_object(filename)
+                        cloud_flag = detect_single_object_cloud(filename)
+
+                        respond("Local model detected - " + local_flag)
+                        respond("Cloud model detected - " + cloud_flag)
                 else:
                     respond("No file selected", voice)
             except:

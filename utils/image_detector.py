@@ -31,6 +31,12 @@ def detect_single_object(img_file):
 
     return predicted_label
 
+def detect_single_object_cloud(img_file):
+    with open(img_file, mode="rb") as data:
+        results = predictor.detect_image(PROJECT_ID, MODEL_NAME, data)
+
+    return results.predictions[0].tag_name 
+
 def detect_multi_object(img_file):
     img = Image.open(img_file)
     img_h, img_w, img_ch = np.array(img).shape
