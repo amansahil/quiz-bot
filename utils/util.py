@@ -76,33 +76,33 @@ def _quiz(difficulty=None, category=None):
     options.append(results['correct_answer'])
     random.shuffle(options)
 
-    print(html.unescape(results['question']))
+    respond(html.unescape(results['question']))
     print("")
 
     i = 1
     for option in options:
-        print(html.unescape(str(i) + ") " + option))
+        respond(html.unescape(str(i) + ") " + option))
         i = i + 1 
 
     user_input = input("> ")
     user_input = user_input.lower().strip()
     if (user_input.isnumeric() and len(options) >= int(user_input)):
         if (options[int(user_input) - 1] == results['correct_answer']):
-            print("Correct!!!")
+            respond("Correct!!!")
             return
 
     if (user_input == answer):
-        print("Correct!!!")
+        respond("Correct!!!")
     else:
-        print("Better luck next time :/, the correct answer was " + answer)
+        respond("Better luck next time :/, the correct answer was " + answer)
 
 def _fact(difficulty=None, category=None):
 
     results = _call_quiz_api(difficulty, category)
 
-    print(html.unescape(results['question']))
+    respond(html.unescape(results['question']))
     print("")
-    print(html.unescape("Answer: " + results['correct_answer']))
+    respond(html.unescape("Answer: " + results['correct_answer']))
 
 def _synonym_check(word, dict, pos=wn.ADJ):
     net = wn.synsets(word, pos=pos)
@@ -139,7 +139,7 @@ def _api_intent_check(params, func, message):
                 category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
 
                 if category is None:
-                    print("I don't know any "+message+" on " + params[1])
+                    respond("I don't know any "+message+" on " + params[1])
                     return
             
             func(category = CATEGORIES[category])
@@ -154,7 +154,7 @@ def _api_intent_check(params, func, message):
                 category = _synonym_check(category, CATEGORIES, pos=wn.NOUN)        
 
                 if category is None:
-                    print("I don't know any "+message+" on " + params[2])
+                    respond("I don't know any "+message+" on " + params[2])
                     return
             elif difficulty not in DIFFICULTIES:
                 synonym = _synonym_check(difficulty, DIFFICULTIES)        
@@ -162,14 +162,14 @@ def _api_intent_check(params, func, message):
                 if synonym is not None:
                     func(difficulty=DIFFICULTIES[synonym], category=CATEGORIES[category])
                 else:
-                    print("I don't know any "+difficulty+" " +message)
+                    respond("I don't know any "+difficulty+" " +message)
                     return
             else:        
                 func(difficulty=DIFFICULTIES[difficulty], category=CATEGORIES[category])
         else:
             func()
     except:
-        print("There was an issue contacting the quiz API")
+        respond("There was an issue contacting the quiz API")
 
 def _write_to_file(file_name, content, write_type='w'):
     f = open(os.path.join(os.getcwd(), file_name), write_type)
@@ -339,7 +339,7 @@ def response_agent(answer, nlp, voice=False):
 
         elif cmd == 10:
             try:            
-                layout =  [[sg.In() ,sg.FileBrowse()], [sg.Button('Ok'), sg.Button('Cancel')]]
+                layout =  [[sg.In() ,sg.FileBrowse()], [sg.Button('OK'), sg.Button('Cancel')]]
                 # Create the Window
                 window = sg.Window('Select Image', layout)
                 # Event Loop to process "events" and get the "values" of the inputs
