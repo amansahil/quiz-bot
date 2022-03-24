@@ -461,8 +461,23 @@
     </category>
 
     <category>
+        <pattern> WHAT FLAG IS IN THIS IMAGE </pattern>
+        <template><srai> WHAT IS THE FLAG IN THIS IMAGE </srai></template>
+    </category>
+
+    <category>
+        <pattern> NAME THE FLAG IN THIS IMAGE </pattern>
+        <template><srai> WHAT IS THE FLAG IN THIS IMAGE </srai></template>
+    </category>
+
+    <category>
         <pattern> WHAT ARE THE FLAGS IN THIS IMAGE </pattern>
         <template>#10$multi</template>
+    </category>
+
+    <category>
+        <pattern> NAME THE FLAGS IN THIS IMAGE </pattern>
+        <template><srai> WHAT ARE THE FLAGS IN THIS IMAGE </srai></template>
     </category>
 
 </aiml>
