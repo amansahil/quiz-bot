@@ -21,6 +21,10 @@ Install nltkfiles
     >>> nltk.download('punkt')
     >>> nltk.download('averaged_perceptron_tagger')
 
+### Image classifier
+
+Export the h5 file for the image classifier by running the notebook in the CNN-Notebook folder. Copy the generated h5 file into the root directory
+
 ### Enviroment variables
 
 Create a `.env` file with your relevant azure keys
