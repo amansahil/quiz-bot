@@ -5,37 +5,11 @@ import html
 import pickle
 import PySimpleGUI as sg
 
-from nltk.sem import Expression
-from nltk.inference import ResolutionProver
 import azure.cognitiveservices.speech as speechsdk
 from nltk.corpus import wordnet as wn
 
 from utils.constants import CATEGORIES, DIFFICULTIES, KB, KB_CACHE, NAME_FILE, TOPIC_FILE, AZURE_VOICE_API_KEY
 from utils.image_detector import detect_multi_object, detect_single_object, detect_single_object_cloud
-
-_read_expr = Expression.fromstring
-_kb = []
-
-try:
-    with open(KB_CACHE, 'rb') as cache_file:
-        _kb = pickle.load(cache_file)
-        print("Loaded knowledge base from cache")
-except:
-    print("Loading knowledge base...")
-    with open(KB) as file:
-        data = file.readlines()
-        [_kb.append(_read_expr(row.strip())) for row in data]
-
-    for expr in _kb:
-        expression = ResolutionProver().prove(expr, _kb, verbose=False)
-        opposite_expression = ResolutionProver().prove(-expr, _kb, verbose=False)
-
-        if expression == opposite_expression:
-            raise Exception('There is a contradiction in the knowledge base')
-
-    # Cache KB
-    with open(KB_CACHE, 'wb') as cache_file:
-        pickle.dump(_kb, cache_file, 4) 
 
 _previous_query = {
     'func': None,
@@ -184,59 +158,6 @@ def read_from_file(file_name):
     
     return ""
 
-def _store_in_kb(expression):
-    _kb.append(_read_expr(expression))
-
-    _write_to_file(KB, expression+'\n', write_type='a')
-
-    with open(KB_CACHE, 'wb') as cache_file:
-        pickle.dump(_kb, cache_file, 4) 
-
-def _is_in(continent, country, voice=False, display=False):
-
-    respond("Checking...", voice, display)
-
-    continent = continent.replace(" ", "")
-
-    expr = _read_expr(continent + '(' + country + ')') 
-    answer = ResolutionProver().prove(expr, _kb, verbose=False)
-
-    if answer:
-        return 1
-    else:
-        answer = ResolutionProver().prove(-expr, _kb, verbose=False)
-        if answer:
-            return 0
-        else:
-            return -1
-
-def _check_border(country1, country2, voice=False):
-
-    respond("Checking...", voice)
-    
-    result = _is_in('island', country1)
-    result_2 = _is_in('island', country2)
-
-    if result == 1 or result_2 == 1:
-        return 0
-
-    expr = _read_expr('border(' + country1 + ',' + country2 + ')') 
-    expr_2 = _read_expr('border(' + country2 + ',' + country1 + ')') 
-
-    answer = ResolutionProver().prove(expr, _kb, verbose=False)
-    answer_2 = ResolutionProver().prove(expr_2, _kb, verbose=False) # More performant than adding `border(x, y) -> border(y, x)` to `map-kb.txt` even though it does the same.
-
-    if answer or answer_2:
-        return 1
-    else:
-        answer = ResolutionProver().prove(-expr, _kb, verbose=False) 
-        answer_2 = ResolutionProver().prove(-expr_2, _kb, verbose=False)
-
-        if answer or answer_2: 
-            return 0
-        else:
-            return -1
-
 def response_agent(answer, nlp, voice=False):
     if len(answer) > 0 and answer[0] == '#':
         params = answer[1:].split('$')
@@ -286,57 +207,6 @@ def response_agent(answer, nlp, voice=False):
                 params.append(category)
             
             _api_intent_check(params, _previous_query["func"], _previous_query["message"])
-        elif cmd == 6:
-            try:
-                result = _check_border(params[2], params[3], voice)
-                if result == 1:
-                    respond("I already know that", voice)
-                elif result == 0:
-                    respond("Hmmm that seems to contradict what I know already", voice)
-                else:
-                    expr = 'border(' + params[2] + ',' + params[3] + ')'
-                    _store_in_kb(expr)
-                    respond("Okay I will remember that one", voice)    
-            except:
-                respond("I'm not sure if you have asked that question right", voice)    
-        elif cmd == 7:
-            try:
-                result = _check_border(params[2], params[3], voice)
-                if result == 1:
-                    respond("They do share a border", voice)
-                elif result == 0:
-                    respond("They do not share a border", voice)
-                else:
-                    respond("Sorry, I don't know about that one", voice)    
-            except:
-                respond("I'm not sure if you have asked that question right", voice)    
-        elif cmd == 8:
-            try:
-                result = _check_border(params[2], params[3], voice)
-                if result == 1:
-                    respond("Hmmm that seems to contradict what I know already", voice)
-                elif result == 0:
-                    respond("I already know that", voice)
-                else:
-                    expr = '-border(' + params[2] + ',' + params[3] + ')'
-                    _store_in_kb(expr)
-                    respond("Okay I will remember that one", voice)    
-            except:
-                respond("I'm not sure if you have asked that question right", voice)    
-        elif cmd == 9:
-            try:
-                answer = _is_in(params[2], params[1], voice, display=True)
-                
-                if answer == 1:
-                    respond("Yes", voice)
-                elif answer == 0:
-                    respond("No", voice)
-                else:
-                    respond("Sorry, I don't know about that one", voice)    
-                
-            except:
-                respond("I'm not sure if you have asked that question right", voice)    
-
         elif cmd == 10:
             try:            
                 layout =  [[sg.In() ,sg.FileBrowse()], [sg.Button('OK'), sg.Button('Cancel')]]

@@ -33,7 +33,6 @@ Use standard NLP:
 
     python quiz_bot.py
 
-
 Use BERT NLP:
 
     python quiz_bot.py bert
