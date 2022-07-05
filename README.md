@@ -3,6 +3,7 @@
 A chatbot for all your quiz needs especially vexillology. Integrted with Azure AI services and image classification.
 
 [Example chats](#example-chats)
+
 [Example Image Classification](#example-image-classification)
 
 ## Setup
