@@ -2,6 +2,9 @@
 
 A chatbot for all your quiz needs especially vexillology. Integrted with Azure AI services and image classification.
 
+[Example chats](#example-chats)
+[Example Image Classification](#example-image-classification)
+
 ## Setup
 
 ### Install
@@ -140,7 +143,7 @@ Use BERT NLP:
     
     Studio pianos are around 42 to 45 inches tall.
 
-## Example Image Detection
+## Example Image Classification
 
 The chat bot provides a GUI interface to select the images of flags the user wishes to use.
 
