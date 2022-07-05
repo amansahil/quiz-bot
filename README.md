@@ -156,4 +156,14 @@ Depending on the way the question was asked the chatbot will use either single o
 
 ### Single Object Detection
 
+**IMAGE SELECTION :-**
+
+<img width="452" alt="Picture 3" src="https://user-images.githubusercontent.com/33552991/177367676-0188d566-3d1f-4098-ba69-b20906ca4922.png">
+
+**IMAGE DETECTION :-**
+
+<img width="428" alt="Picture 2" src="https://user-images.githubusercontent.com/33552991/177367693-0486c6fa-1cb8-4eea-a2a4-6068d0926e30.png">
+
 ### Multi Object Detection
+
+<img width="452" alt="Picture 1" src="https://user-images.githubusercontent.com/33552991/177368104-547549d1-2e1b-49d7-b7e8-3d10ea9a46bb.png">

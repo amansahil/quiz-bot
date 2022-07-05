@@ -158,3 +158,6 @@ kb-cache
 
 # Misc
 .DS_Store
+
+# Model
+*.h5
