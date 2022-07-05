@@ -23,7 +23,7 @@ Install nltkfiles
 
 ### Image classifier
 
-Export the h5 file for the image classifier by running the notebook in the CNN-Notebook folder. Copy the generated h5 file into the root directory
+Export the h5 file for the image classifier by running the notebook in the CNN-Notebook folder. Copy the generated h5 file into the root directory.
 
 ### Enviroment variables
 
