@@ -1,6 +1,6 @@
 # QUIZ BOT
 
-A chatbot for all your quiz needs, integrated with azure voice services
+A chatbot for all your quiz needs especially vexillology. Integrted with Azure AI services and image classification.
 
 ## Setup
 
@@ -23,9 +23,18 @@ Install nltkfiles
 
 ### Enviroment variables
 
-Create a `.env` file with your azure your voice service API key
+Create a `.env` file with your relevant azure keys
 
-    API_KEY=<YOUR-AZURE-API-KEY>
+    API_KEY=<YOUR-AZURE-API-VOICE-KEY>
+
+    PROJECT_ID=<PROJECT-ID>
+    CV_KEY=<CV-KEY>
+    CV_ENDPOINT=<CV-ENDPOINT>
+    MODEL_NAME=<MODEL-NAME>
+
+    COG_KEY=<COG-KEY>
+    COG_ENDPOINT=<COG-ENDPOINT>
+    COG_REGION=<COG-REGION>
 
 ## Run
 
