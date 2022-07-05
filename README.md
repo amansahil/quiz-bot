@@ -1,6 +1,6 @@
 # QUIZ BOT
 
-A chatbot for all your quiz needs especially vexillology. Integrted with Azure AI services and image classification.
+A chatbot for all your quiz needs especially vexillology. Integrated with Azure AI services and image classification.
 
 [Example chats](#example-chats)
 
